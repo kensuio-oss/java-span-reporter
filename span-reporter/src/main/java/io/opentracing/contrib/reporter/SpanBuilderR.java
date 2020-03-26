@@ -62,8 +62,10 @@ public class SpanBuilderR implements Tracer.SpanBuilder {
     //FIXME manage reference to parent
     @Override
     public Tracer.SpanBuilder addReference(String s, SpanContext spanContext) {
-        wrapped.addReference(s, spanContext);
-        references.put(s, findSpanId(spanContext));
+        if (spanContext != null) {
+            wrapped.addReference(s, spanContext);
+            references.put(s, findSpanId(spanContext));
+        }
         return this;
     }
 
