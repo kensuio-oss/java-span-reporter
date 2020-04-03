@@ -1,5 +1,15 @@
 [![Build Status][ci-img]][ci] [![Coverage Status][cov-img]][cov] [![Released Version][maven-img]][maven]
 
+# Publishing to Nexus
+
+```bash
+MAVEN_REPO_ID='kensu' MAVEN_REPO_URL="https://some.host.name/n/repository/maven-snapshots/" ./gradlew publish
+```
+
+it reads credentials from `~/.m2/settings.xml`
+
+This will publish a snapshot like this: `0.3.0-2-gb3e162c-SNAPSHOT`
+
 # SpanReporter for Java
 SpanReporter forward to backend Tracer and reports trace into Reporter.
 
