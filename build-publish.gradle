@@ -2,7 +2,10 @@
 // This file is to be applied to some subproject.
 //
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'net.linguica.maven-settings'
 apply plugin: 'maven-publish'
+apply plugin: 'org.hibernate.build.maven-repo-auth'
+
 
 // documentation and samples: https://github.com/bintray/gradle-bintray-plugin
 project.ext.bintray_user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('BINTRAY_USER')
@@ -25,6 +28,10 @@ def pomConfig = {
     system "github"
     url project.issue_url
   }
+}
+
+mavenSettings {
+    userSettingsFileName = "~/.m2/settings.xml"
 }
 
 // Create the publication with the pom configuration:
@@ -53,7 +60,14 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            name = System.getenv('MAVEN_REPO_ID')
+            url = System.getenv('MAVEN_REPO_URL')
+        }
+    }
 }
+
 
 bintray {
     user = project.bintray_user
